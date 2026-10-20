@@ -1,0 +1,67 @@
+{
+  "name": "Activity",
+  "type": "object",
+  "properties": {
+    "actor_email": {
+      "type": "string",
+      "description": "Email of the person who did it"
+    },
+    "actor_name": {
+      "type": "string",
+      "description": "Display name of the person who did it"
+    },
+    "access_level": {
+      "type": "string",
+      "enum": [
+        "owner",
+        "manager",
+        "staff"
+      ],
+      "description": "Access level the person had when acting"
+    },
+    "action": {
+      "type": "string",
+      "description": "What happened, e.g. vehicle.created"
+    },
+    "summary": {
+      "type": "string",
+      "description": "One-line description shown in insight"
+    },
+    "target_type": {
+      "type": "string"
+    },
+    "target_id": {
+      "type": "string"
+    },
+    "date": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When it happened"
+    }
+  },
+  "required": [
+    "action",
+    "summary",
+    "date"
+  ],
+  "rls": {
+    "read": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "create": {
+      "data.actor_email": "{{user.email}}"
+    },
+    "update": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "delete": {
+      "user_condition": {
+        "role": "admin"
+      }
+    }
+  }
+}

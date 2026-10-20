@@ -1,0 +1,45 @@
+{
+  "name": "User",
+  "type": "object",
+  "properties": {
+    "role": {
+      "type": "string",
+      "description": "The role of the user in the app",
+      "enum": [
+        "admin",
+        "user"
+      ]
+    },
+    "access_level": {
+      "type": "string",
+      "description": "Frontline access level \u2014 owner, manager or staff",
+      "enum": [
+        "owner",
+        "manager",
+        "staff"
+      ],
+      "rls": {
+        "update": {
+          "user_condition": {
+            "collaborator_role": "editor"
+          }
+        }
+      }
+    },
+    "suspended": {
+      "type": "boolean",
+      "default": false,
+      "description": "Suspended teammates keep their history but lose access to the app",
+      "rls": {
+        "update": {
+          "user_condition": {
+            "collaborator_role": "editor"
+          }
+        }
+      }
+    }
+  },
+  "required": [
+    "role"
+  ]
+}

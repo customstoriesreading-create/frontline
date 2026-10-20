@@ -1,0 +1,130 @@
+{
+  "name": "Vehicle",
+  "type": "object",
+  "properties": {
+    "photos": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "minItems": 1,
+      "maxItems": 15,
+      "description": "Photo URLs, first photo is the cover photo (1-15)"
+    },
+    "main_photo": {
+      "type": "string",
+      "description": "Cover photo URL"
+    },
+    "brand": {
+      "type": "string"
+    },
+    "model": {
+      "type": "string"
+    },
+    "submodel": {
+      "type": "string"
+    },
+    "additional_info": {
+      "type": "string"
+    },
+    "color": {
+      "type": "string"
+    },
+    "license_plate": {
+      "type": "string"
+    },
+    "vin": {
+      "type": "string"
+    },
+    "price": {
+      "type": "number",
+      "description": "Asking price in dollars, optional"
+    },
+    "sold_price": {
+      "type": "number",
+      "description": "Price the vehicle was sold for"
+    },
+    "sold_date": {
+      "type": "string",
+      "format": "date",
+      "description": "Day the vehicle was marked sold"
+    },
+    "previous_crash": {
+      "type": "boolean",
+      "default": false
+    },
+    "crash_details": {
+      "type": "string"
+    },
+    "previous_owners": {
+      "type": "number",
+      "default": 0
+    },
+    "previous_owner_details": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "available",
+        "reserved",
+        "sold"
+      ],
+      "default": "available"
+    }
+  },
+  "required": [
+    "brand",
+    "model",
+    "photos"
+  ],
+  "rls": {
+    "read": {
+      "$or": [
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        },
+        {
+          "user_condition": {
+            "role": "user"
+          }
+        }
+      ]
+    },
+    "create": {
+      "$or": [
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        },
+        {
+          "user_condition": {
+            "role": "user"
+          }
+        }
+      ]
+    },
+    "update": {
+      "$or": [
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        },
+        {
+          "user_condition": {
+            "role": "user"
+          }
+        }
+      ]
+    },
+    "delete": {
+      "user_condition": {
+        "role": "admin"
+      }
+    }
+  }
+}
